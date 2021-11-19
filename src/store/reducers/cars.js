@@ -1,0 +1,52 @@
+const initialState = {
+    cars: [],
+    carsLoading: false,
+
+    car: null,
+    carLoading: false,
+}
+
+export const cars = (state = initialState, action) => {
+    switch(action.type) {
+        // GET_CARS_START
+        case 'GET_CARS_REQUEST':
+            return {
+                ...state,
+                carsLoading: true,
+            }
+        case 'GET_CARS_SUCCESS':
+            return {
+                ...state,
+                cars: action.payload,
+                carsLoading: false,
+            }
+        case 'GET_CARS_FAILURE':
+            return {
+                ...state,
+                carsLoading: false,
+            }
+        // GET_CARS_END
+
+        // GET_CAR_START
+         case 'GET_CAR_REQUEST':
+            return {
+                ...state,
+                carLoading: true,
+            }
+        case 'GET_CAR_SUCCESS':
+            return {
+                ...state,
+                car: action.payload,
+                carLoading: false,
+            }
+        case 'GET_CAR_FAILURE':
+            return {
+                ...state,
+                carLoading: false,
+            }
+        // GET_CAR_END 
+
+        default:
+            return state
+    }
+}
