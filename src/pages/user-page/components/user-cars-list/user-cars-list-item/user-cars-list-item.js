@@ -1,13 +1,13 @@
 import React from 'react'
 
-import styles from './cars-list-item.module.css'
+import styles from './user-cars-list-item.module.css'
 
-export const CarsListItem = (props) => {
+export const UserCarsListItem = (props) => {
     const { 
         item,
         index, 
     } = props
-    console.log(item)
+    
     return (
         <div className={styles.container}>
             <p className={styles.index}>{index + 1}.</p>

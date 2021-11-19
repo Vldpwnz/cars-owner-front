@@ -1,6 +1,10 @@
 const initialState = {
     cars: [],
     carsLoading: false,
+    carsPage: 0,
+    carsLastPage: false,
+    carsPerPage: 5,
+    carsOrder: 'desc',
 
     car: null,
     carLoading: false,
@@ -14,12 +18,26 @@ export const cars = (state = initialState, action) => {
                 ...state,
                 carsLoading: true,
             }
-        case 'GET_CARS_SUCCESS':
+        case 'GET_CARS_SUCCESS': {
+            const updatedCars = [...action.payload.cars]
+
+            if (updatedCars.length) {
+                updatedCars.map((car, index) => {
+                    car.number = index + 1 + (action.payload.carsPage * state.carsPerPage) 
+
+                    return car
+                })
+            }
+
             return {
                 ...state,
-                cars: action.payload,
+                cars: updatedCars,
                 carsLoading: false,
+                carsPage: action.payload.carsPage,
+                carsLastPage: action.payload.carsLastPage,
+                carsOrder: action.payload.carsOrder,
             }
+        }
         case 'GET_CARS_FAILURE':
             return {
                 ...state,

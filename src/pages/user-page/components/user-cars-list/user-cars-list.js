@@ -5,30 +5,30 @@ import {
     NoData,
 } from '../../../../components'
 
-import { CarsListHeader } from './cars-list-header'
-import { CarsListItem } from './cars-list-item'
+import { UserCarsListHeader } from './user-cars-list-header'
+import { UserCarsListItem } from './user-cars-list-item'
 
-import styles from './cars-list.module.css'
+import styles from './user-cars-list.module.css'
 
-export const CarsList = (props) => {
+export const UserCarsList = (props) => {
     const { 
-        cars,
-        carsLoading
+        user,
+        userLoading,
     } = props
 
     return (
         <div className={styles.container}>
             {
-                carsLoading
+                userLoading
                 ? <Spinner style={{ height: 'calc(100vh - 100px)' }} />
-                : cars.length
+                : user
                 ? (
                     <>
-                        <CarsListHeader />
+                        <UserCarsListHeader user={user} />
                         
                         {
-                            cars.map((item, index) => (
-                                <CarsListItem
+                            user.cars && user.cars.length && user.cars.map((item, index) => (
+                                <UserCarsListItem
                                     key={index}
                                     item={item}
                                     index={index}

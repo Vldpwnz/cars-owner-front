@@ -1,6 +1,13 @@
 import React from 'react'
 
-import { useDispatch } from 'react-redux'
+import { 
+    useDispatch, 
+    useSelector, 
+} from 'react-redux'
+
+import { useHistory } from 'react-router-dom'
+
+import queryString from 'query-string'
 
 import { getUsersAction } from '../../../../store/actions/users'
 
@@ -10,6 +17,7 @@ import {
     Pagination
 } from '../../../../components'
 
+import { UsersListHeader } from './users-list-header'
 import { UsersListItem } from './users-list-item'
 
 import styles from './users-list.module.css'
@@ -20,16 +28,38 @@ export const UsersList = (props) => {
         usersLoading,
         usersPage,
         usersLastPage,
+        location,
     } = props
 
+    const usersOrder = useSelector((state) => state.users.usersOrder)
+
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const onClickPrev = () => {
-        dispatch(getUsersAction({ pagination: 'prev' }))
+        const searchParams = queryString.parse(location.search)
+
+        dispatch(getUsersAction({ ...searchParams, pagination: 'prev' }))
     }
 
     const onClickNext = () => {
-        dispatch(getUsersAction({ pagination: 'next' }))
+        const searchParams = queryString.parse(location.search)
+
+        dispatch(getUsersAction({ ...searchParams, pagination: 'prev' }))
+    }
+
+    const onSort = () => {
+        const searchParams = queryString.parse(location.search)
+
+        if (searchParams.find) {
+            history.push(`?sort=name&order=${usersOrder === 'asc' ? 'desc' : 'asc'}&find=${searchParams.find}`)
+
+            dispatch(getUsersAction({ sort: 'name', find: searchParams.find }))
+        } else {
+            history.push(`?sort=name&order=${usersOrder === 'asc' ? 'desc' : 'asc'}`)
+
+            dispatch(getUsersAction({ sort: 'name' }))
+        }
     }
 
     return (
@@ -40,12 +70,13 @@ export const UsersList = (props) => {
                 : users.length
                 ? (
                     <>
+                        <UsersListHeader onSort={onSort} />
+
                         {
-                            users.map((item, index) => (
+                            users.map((item) => (
                                 <UsersListItem
-                                    key={index}
+                                    key={item.id}
                                     item={item}
-                                    index={index}
                                 />
                             )) 
                         }

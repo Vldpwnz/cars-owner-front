@@ -3,13 +3,11 @@ const initialState = {
     usersLoading: false,
     usersPage: 0,
     usersLastPage: false,
-    usersPerPage: 5,
+    usersPerPage: 10,
+    usersOrder: 'desc',
 
     user: null,
     userLoading: false,
-
-    userCars: [],
-    userCarsLoading: false,
 }
 
 export const users = (state = initialState, action) => {
@@ -20,14 +18,26 @@ export const users = (state = initialState, action) => {
                 ...state,
                 usersLoading: true,
             }
-        case 'GET_USERS_SUCCESS':
+        case 'GET_USERS_SUCCESS': {
+            const updatedUsers = [...action.payload.users]
+
+            if (updatedUsers.length) {
+                updatedUsers.map((user, index) => {
+                    user.number = index + 1 + (action.payload.usersPage * state.usersPerPage) 
+
+                    return user
+                })
+            }
+
             return {
                 ...state,
-                users: action.payload.users,
+                users: updatedUsers,
                 usersLoading: false,
                 usersPage: action.payload.usersPage,
                 usersLastPage: action.payload.usersLastPage,
+                usersOrder: action.payload.usersOrder,
             }
+        }
         case 'GET_USERS_FAILURE':
             return {
                 ...state,
@@ -53,25 +63,6 @@ export const users = (state = initialState, action) => {
                 userLoading: false,
             }
         // GET_USER_END 
-
-        // GET_USER_CARS_START
-         case 'GET_USER_CARS_REQUEST':
-            return {
-                ...state,
-                userCarsLoading: true,
-            }
-        case 'GET_USER_CARS_SUCCESS':
-            return {
-                ...state,
-                userCars: action.payload,
-                userCarsLoading: false,
-            }
-        case 'GET_USER_CARS_FAILURE':
-            return {
-                ...state,
-                userCarsLoading: false,
-            }
-        // GET_USER_CARS_END
 
         default:
             return state

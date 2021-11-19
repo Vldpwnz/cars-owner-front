@@ -14,23 +14,49 @@ export const getUsersAction = (params = {}, callback) => {
             let page = store.getState().users.usersPage
             let usersPerPage = store.getState().users.usersPerPage
             let usersLastPage = store.getState().users.usersLastPage
+            let usersOrder = store.getState().users.usersOrder
             
+            const getUsersParams = { page: page }
+
             if (params.pagination) {
                 if (params.pagination === 'prev') {
                     page--
+
+                    getUsersParams.page = page
                 } else if (params.pagination === 'next' && !usersLastPage) {
                     page++
+
+                    getUsersParams.page = page
                 }
             }
 
-            const { data } = await getUsers({ page: page })
+            if (params.find) {
+                getUsersParams.find = params.find
+            }
+
+            if (params.sort) {
+                getUsersParams.sort = params.sort
+
+                if (params.order) {
+                    getUsersParams.order = params.order
+                } else {
+                    if (usersOrder === 'desc') {
+                        getUsersParams.order = 'asc'
+                    } else if (usersOrder === 'asc') {
+                        getUsersParams.order = 'desc'
+                    }
+                }
+            }
+
+            const { data } = await getUsers(getUsersParams)
 
             dispatch({
                 type: 'GET_USERS_SUCCESS',
                 payload: {
                     users: [...data],
                     usersPage: page,
-                    usersLastPage: data.length <= usersPerPage,
+                    usersLastPage: data.length < usersPerPage,
+                    usersOrder: getUsersParams.order || usersOrder,
                 },
             })
 
@@ -46,35 +72,22 @@ export const getUserAction = (params = {}, callback) => {
         dispatch({ type: 'GET_USER_REQUEST' })
 
         try {
-            const data = await getUser(params.userId)
-            console.log(data)
+            const userData = await getUser(params.userId)
+            const userCarsData = await getUserCars(params.userId)
+
+            const user = {
+                ...userData.data,
+                cars: [...userCarsData.data],
+            }
+
             dispatch({
                 type: 'GET_USER_SUCCESS',
-                //payload: languages,
+                payload: user,
             })
 
             if (callback) callback()
         } catch (error) {
             dispatch({ type: 'GET_USER_FAILURE' })
-        }
-    }
-}
-
-export const getUserCarsAction = (params = {}, callback) => {
-    return async (dispatch) => {
-        dispatch({ type: 'GET_USER_CARS_REQUEST' })
-
-        try {
-            const data = await getUserCars(params.userId)
-            console.log(data)
-            dispatch({
-                type: 'GET_USER_CARS_SUCCESS',
-                //payload: languages,
-            })
-
-            if (callback) callback()
-        } catch (error) {
-            dispatch({ type: 'GET_USER_CARS_FAILURE' })
         }
     }
 }

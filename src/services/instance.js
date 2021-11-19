@@ -10,11 +10,6 @@ function handleSuccess(res) {
 }
 
 function handleError(error) {
-    if (error) {
-        let message = 'Ooops!'
-        let description = 'Something went wrong!'
-    }
-
     console.log(error)
 
     return Promise.reject(error)

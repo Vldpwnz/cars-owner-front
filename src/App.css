@@ -1,9 +1,10 @@
-html, body, .App, #root {
-  min-height: 100vh;
+.switch-wrapper {
+  position: relative;
+  height: 100%;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+.switch-wrapper > div {
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }

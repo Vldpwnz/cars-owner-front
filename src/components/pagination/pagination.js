@@ -9,7 +9,7 @@ export const Pagination = (props) => {
         onClickPrev,
         onClickNext,
     } = props
-    console.log(disabledNext)
+    
     return (
         <div className={styles.container}>
             <button
