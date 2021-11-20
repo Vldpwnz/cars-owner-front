@@ -70,7 +70,10 @@ export const UsersList = (props) => {
                 : users.length
                 ? (
                     <>
-                        <UsersListHeader onSort={onSort} />
+                        <UsersListHeader 
+                            usersOrder={usersOrder}
+                            onSort={onSort} 
+                        />
 
                         {
                             users.map((item) => (

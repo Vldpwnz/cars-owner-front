@@ -2,11 +2,27 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 80px;
+    height: 50px;
 }
 
 .plug {
     width: 100px;
+}
+
+.title_sort_container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.title_sort {
+    cursor: pointer;
+    padding-right: 25px;
+    font-size: 20px;
+    font-weight: 600;
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: 20px;
 }
 
 .title {

@@ -13,7 +13,7 @@ export const Pagination = (props) => {
     return (
         <div className={styles.container}>
             <button
-                className={styles.button}
+                className={styles.button_left}
                 disabled={disabledPrev}
                 onClick={() => onClickPrev()}
             >
@@ -21,7 +21,7 @@ export const Pagination = (props) => {
             </button>
 
             <button
-                className={styles.button}
+                className={styles.button_right}
                 disabled={disabledNext}
                 onClick={() => onClickNext()}
             >

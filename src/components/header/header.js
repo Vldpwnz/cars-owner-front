@@ -9,13 +9,14 @@ import {
 
 import queryString from 'query-string'
 
-import { getUserAction, getUsersAction } from '../../store/actions/users'
+import { getUsersAction } from '../../store/actions/users'
 import { getCarsAction } from '../../store/actions/cars'
 
 import { Search } from '../search'
 
+import { colors } from '../../themes'
+
 import styles from './header.module.css'
-import { getUserCars } from '../../services/users'
 
 export const Header = (props) => {
     const { location } = props
@@ -68,16 +69,24 @@ export const Header = (props) => {
     }
 
     return (
-        <div className={styles.container}>
+        <div 
+            className={styles.container}
+            style={{ boxShadow: `1px 4px 10px 0px ${colors.greyLight}` }}
+        >
             <NavLink to='/'>
-                <p className={styles.text}>Car's Owner</p>
+                <p 
+                    className={styles.logo}
+                    style={{ textShadow: `2px 2px 2px ${colors.grey}` }}
+                >
+                    Car's Owner
+                </p>
             </NavLink>
 
             <div className={styles.buttons}>
                 <NavLink to='/users'>
                     <button 
                         className={styles.button}
-                        style={{ backgroundColor: selectedTable === 'users' ? '#2d669d' : '#d2e8ff' }}
+                        style={{ backgroundColor: selectedTable === 'users' ? `${colors.mainDark}` : `${colors.main}` }}
                         onClick={() => onClickHederButton('users')}
                     >
                         Users
@@ -87,7 +96,7 @@ export const Header = (props) => {
                 <NavLink to='/cars'>
                     <button  
                         className={styles.button}
-                        style={{ backgroundColor: selectedTable === 'cars' ? '#2d669d' : '#d2e8ff' }}
+                        style={{ backgroundColor: selectedTable === 'cars' ? `${colors.mainDark}` : `${colors.main}` }}
                         onClick={() => onClickHederButton('cars')}
                     >
                         Cars
@@ -102,7 +111,7 @@ export const Header = (props) => {
                     )
                     && (
                         <Search 
-                            className={styles.searchField}
+                            className={styles.search}
                             searchValue={searchValue}
                             setSearchValue={setSearchValue}
                             onSearch={onSearch}

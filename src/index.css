@@ -2,16 +2,22 @@ html, body, .App, #root {
   min-height: 100vh;
 }
 
+body {
+  background-color: '#C9C9C9';
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
+  }
 
 a {
   text-decoration: none;
+  color: black;
 }
 
-button, input, a {
+button, button:hover, button:active, input, a {
   outline: none;
+  cursor: pointer;
 }

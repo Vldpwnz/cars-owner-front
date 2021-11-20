@@ -1,23 +1,29 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto);
-
-.searchField {
-    font-family: inherit;
-    width: 100%;
-    border: 0;
-    border-bottom: 1px solid #d2d2d2;
-    outline: 0;
+.search {
+    width: 150px;
+    height: 40px;
     font-size: 16px;
-    color: #212121;
     padding: 7px 0;
-    background: transparent;
-    transition: border-color 0.2s;
+    border: 0;
+    border-bottom: 1px solid rgba(27, 31, 35, 0.35);
+    transition: .3s;
 }
 
-.searchField::placeholder {
-    color: grey;
+.search::placeholder {
+    color: rgba(27, 31, 35, 0.35);
 }
 
-.searchField:focus{
-    color: #009788;
-    border-bottom: 1px solid #009788;
+.search:focus{
+    border-bottom: 1px solid rgb(45, 102, 157);
+}
+
+.button {
+    border: 0;
+    line-height: 20px;
+    height: 40px;
+    width: 30px;
+    user-select: none;
+    background: url('../../assets/icons/search.png') no-repeat;
+    background-size: 30px;
+    background-position: bottom;
+    margin-left: 5px;
 }

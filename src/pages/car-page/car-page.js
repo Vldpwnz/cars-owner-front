@@ -35,7 +35,7 @@ export const CarPage = (props) => {
                 ? (
                     <div className={styles.car_info_container}>
                         <p className={styles.car_info}>{car.producer} {car.model} ({car.numberPlate})</p>
-                        <p className={styles.car_info}> - {car.user.name}</p>
+                        <p className={styles.car_info}>&nbsp;-&nbsp;{car.user.name}</p>
                     </div>
                 )
                 : <NoData style={{ height: 'calc(100vh - 100px)' }} /> // empty data

@@ -13,8 +13,8 @@ export const Search = (props) => {
     return (
         <div className={className}>
             <input 
-                className={styles.searchField} 
-                placeholder="searchBy" 
+                className={styles.search} 
+                placeholder="search" 
                 onChange={(event) => setSearchValue(event.target.value)}
             />
 
@@ -22,9 +22,7 @@ export const Search = (props) => {
                 className={styles.button}
                 disabled={!searchValue}
                 onClick={() => onSearch()}
-            >
-                Search
-            </button>
+            />
         </div>
         
 

@@ -70,7 +70,10 @@ export const CarsList = (props) => {
                 : cars.length
                 ? (
                     <>
-                        <CarsListHeader onSort={onSort} />
+                        <CarsListHeader 
+                            onSort={onSort}
+                            carsOrder={carsOrder} 
+                        />
                         
                         {
                             cars.map((item) => (
